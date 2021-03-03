@@ -24,7 +24,6 @@ body {
 	transform: scale(1);
 }
 
-/* Display lose message for 5 seconds */
 .game__lose_msg::before {
 	content: attr(data-content);
 	position: fixed;
