@@ -4,6 +4,7 @@ import GameScores from "./GameScores";
 import GameCards from "./GameCards";
 
 function Game() {
+  const [loading, setLoading] = useState(true);
   const [heroes, setHeroes] = useState(null);
   const [cards, setCards] = useState(null);
   const [currScore, setCurrScore] = useState(0);
@@ -17,6 +18,7 @@ function Game() {
       let randomNum = Math.floor(Math.random() * (data.length - 20));
       const randomHeroes = data.slice(randomNum, randomNum + 40);
 
+      setLoading(false);
       setHeroes(randomHeroes);
     })();
   }, []);
@@ -71,7 +73,13 @@ function Game() {
     <div id="game">
       <GameHeader heroClicked={heroClicked} />
       <GameScores currScore={currScore} bestScore={bestScore} />
-      <GameCards heroes={heroes} cards={cards} displayCards={displayCards} />
+      {!loading ? (
+        <GameCards heroes={heroes} cards={cards} displayCards={displayCards} />
+      ) : (
+        <div className="loading-msg">
+          <p>Loading...</p>
+        </div>
+      )}
     </div>
   );
 }
